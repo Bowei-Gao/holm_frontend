@@ -11,6 +11,7 @@ export default {
       result_add_algorithm: [],
       result_savings_algorithm: null,
       customers: [],
+      result_assignment: null
     }
   },
   methods: {
@@ -48,6 +49,26 @@ export default {
             // Handle error here
             console.error(error);
           });
+    },
+    async submitDataAssignment() {
+      this.result.distances = [[14, 16, 12, 4], [13, 12, 10, 5], [12, 18, 10, 7]]
+      this.result.inventory = [350, 250, 200]
+      this.result.demand = [150, 170, 210, 270]
+      const payload = {
+        distances: this.result.distances,
+        inventory: this.result.inventory,
+        demand: this.result.demand // This should be dynamic based on your application's needs
+      };
+
+      axios.post('http://localhost:8080/api/assignment', payload)
+          .then(response => {
+            // Handle response here
+            this.result_assignment = response.data.content;
+          })
+          .catch(error => {
+            // Handle error here
+            console.error(error);
+          });
     }
   }
 }
@@ -60,7 +81,7 @@ export default {
   <three v-if="page==3" @start-add-algorithm="page += 1; distances = $event; submitData();" :number_of_locations="result.number_of_locations" :number_of_customers="result.number_of_customers"></three>
   <four v-if="page==4" @home="page = 0" :result_add_algorithm="result_add_algorithm"></four>
   <five v-if="page==5" @continue="page += 1; result = $event;"></five>
-  <six v-if="page==6" @start-planning="page += 1" :number_of_depots="result.number_of_depots" :number_of_customers="result.number_of_customers"></six>
+  <six v-if="page==6" @start-planning="page += 1; submitDataAssignment();" :number_of_depots="result.number_of_depots" :number_of_customers="result.number_of_customers"></six>
   <seven v-if="page==7" @home="page = 0"></seven>
   <eight v-if="page==8" @continue="page += 1; result = $event;"></eight>
   <nine v-if="page==9" @continue="page += 1; customers = $event;" :number_of_customers="result.number_of_customers"></nine>
