@@ -1,7 +1,16 @@
 <script>
 export default {
     props: ['number_of_depots', 'number_of_customers'],
-    emits: ['startPlanning']
+    emits: ['startPlanning'],
+  data() {
+    return {
+      input_assignment: {
+        distances: Array.from({ length: this.number_of_depots }, () => Array(this.number_of_customers).fill(0)),
+        inventory: [],
+        demand: []
+      }
+    }
+  }
 }
 </script>
 
@@ -40,18 +49,18 @@ export default {
                                 <option value="3">Depot ZGF</option>
                             </select>
                         </td>
-                        <td v-for="colIndex in [...Array(number_of_customers).keys()]" :key="colIndex"><input type="text" name='customer_0' class="form-control"/></td>
-                        <td><input type="text" name='capacity'  placeholder='' class="form-control"/></td>
+                        <td v-for="colIndex in [...Array(number_of_customers).keys()]" :key="colIndex"><input type="number" v-model="input_assignment.distances[rowIndex][colIndex]" name='customer_0' class="form-control"/></td>
+                        <td><input type="number" v-model="input_assignment.inventory[rowIndex]" name='capacity'  placeholder='' class="form-control"/></td>
                     </tr>
                     <tr>
                         <td class="text-center">Demand</td>
-                        <td v-for="cIndex in [...Array(number_of_customers).keys()]" :key="cIndex"><input type="text" name='demand_0' class="form-control"/></td>
+                        <td v-for="cIndex in [...Array(number_of_customers).keys()]" :key="cIndex"><input type="number" v-model="input_assignment.demand[cIndex]" name='demand_0' class="form-control"/></td>
                     </tr>
                 </tbody>
             </table>
             <br>
             <div class="input-group pull-right">
-                <button type="submit" class="btn pull-right" @click="$emit('startPlanning')">Start Planning</button>
+                <button type="submit" class="btn pull-right" @click="$emit('startPlanning', input_assignment)">Start Planning</button>
             </div>
         </form>
     </div>
