@@ -58,7 +58,7 @@ export default {
     
     <div class="container">
         <form>
-            <table class="table input-group">
+            <table class="table input-group" v-if="number_of_customers>0">
                 <thead>
                     <tr>
                         <th></th>
@@ -88,13 +88,15 @@ export default {
                 </tbody>
             </table>
             <div class="well"><h5>Customers that were assigned to the chosen depot in the tactical planning.</h5></div>
+          <div v-if="number_of_customers===0">
             <div class="mb-3">
               <label for="formFile" class="form-label">Please input the delivery quantities file.</label>
               <input class="form-control" type="file" id="formFile"  @change="handleDeliveryQuantitiesFileUpload">
             </div>
-          <div class="mb-3">
-            <label for="formFile" class="form-label">Please input the coordinates file.</label>
-            <input class="form-control" type="file" id="formFile"  @change="handleCoordinatesFileUpload">
+            <div class="mb-3">
+              <label for="formFile" class="form-label">Please input the coordinates file.</label>
+              <input class="form-control" type="file" id="formFile"  @change="handleCoordinatesFileUpload">
+            </div>
           </div>
             <br>
             <div class="input-group pull-right">

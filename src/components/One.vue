@@ -44,15 +44,4 @@ export default {
             </div>
         </form>
     </div>
-
-  <div class="container">
-    <div class="mb-3">
-      <label for="formFile" class="form-label">Or please input a file.</label>
-      <input class="form-control" type="file" id="formFile">
-    </div>
-    <br>
-    <div class="input-group pull-right">
-      <button type="submit" class="btn pull-right">Start ADD-Algorithm</button>
-    </div>
-  </div>
 </template>

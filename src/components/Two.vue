@@ -12,7 +12,21 @@ export default {
                 fixedCost: []
             }
         }
+    },
+  methods: {
+    handleFixedCostsFileUpload(event) {
+      const file = event.target.files[0];
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const content = e.target.result;
+
+        // Assuming each element of the array is on a new line
+        this.locations.fixedCost = content.split(',').map(item => +item.trim()).filter(item => !isNaN(item));
+      };
+      reader.readAsText(file);
     }
+  }
 }
 </script>
 
@@ -26,7 +40,7 @@ export default {
     
     <div class="container">
         <form>
-            <table class="table input-group">
+            <table class="table input-group" v-if="number_of_locations>0">
                 <thead>
                     <tr>
                         <th></th>
@@ -44,6 +58,12 @@ export default {
                     </tr>
                 </tbody>
             </table>
+          <div v-if="number_of_locations===0">
+            <div class="mb-3">
+              <label for="formFile" class="form-label">Please input the fixed costs file.</label>
+              <input class="form-control" type="file" id="formFile"  @change="handleFixedCostsFileUpload">
+            </div>
+          </div>
             <br>
             <div class="input-group pull-right">
                 <button type="submit" class="btn pull-right" @click="$emit('continue', locations)">Continue</button>

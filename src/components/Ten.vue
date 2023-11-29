@@ -15,7 +15,7 @@ export default {
     
     <div class="container">
         <form>
-            <table class="table input-group">
+            <table class="table input-group" v-if="number_of_customers>0">
                 <thead>
                     <tr>
                         <th></th>

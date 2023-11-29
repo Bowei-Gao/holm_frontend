@@ -8,7 +8,24 @@ export default {
             result: {},
             distances: Array.from({ length: this.number_of_locations }, () => Array(this.number_of_customers).fill(0))
         }
+    },
+  methods: {
+    handleDistancesFileUpload(event) {
+      const file = event.target.files[0];
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const content = e.target.result;
+
+        // Parse the CSV content into a 2D array
+        const lines = content.split('\n');
+        this.distances = lines.map(line =>
+            line.split(',').map(item => +item.trim()).filter(item => !isNaN(item))
+        );
+      };
+      reader.readAsText(file);
     }
+  }
 }
 </script>
 
@@ -22,7 +39,7 @@ export default {
     
     <div class="container">
         <form>
-            <table class="table input-group">
+            <table class="table input-group" v-if="number_of_customers>0">
                 <thead>
                     <tr>
                         <th></th>
@@ -43,6 +60,10 @@ export default {
                     </tr>
                 </tbody>
             </table>
+          <div class="mb-3" v-if="number_of_customers===0">
+            <label for="formFile" class="form-label">Please input the distances file.</label>
+            <input class="form-control" type="file" id="formFile"  @change="handleDistancesFileUpload">
+          </div>
             <br>
             <div class="input-group pull-right">
                 <button type="submit" class="btn pull-right" @click="$emit('startAddAlgorithm', distances)">Start ADD-Algorithm</button>
