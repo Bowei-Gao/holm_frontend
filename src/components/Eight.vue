@@ -22,6 +22,7 @@ export default {
     </div>
     
     <div class="container">
+      <label for="formFile" class="form-label">Please input basic information.</label>
         <form>
             <div class="input-group">
                 <select class="form-select" aria-label=".form-select example" v-model="result.depot">

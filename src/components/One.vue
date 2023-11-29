@@ -22,6 +22,7 @@ export default {
     </div>
     
     <div class="container">
+      <label for="formFile" class="form-label">Please input basic information.</label>
         <form>
             <div class="input-group">
                 <span class="input-group-addon">Number of Locations: </span>
@@ -42,5 +43,16 @@ export default {
                 <button type="submit" class="btn pull-right" @click="$emit('continue', result)">Continue</button>
             </div>
         </form>
-        </div>
+    </div>
+
+  <div class="container">
+    <div class="mb-3">
+      <label for="formFile" class="form-label">Or please input a file.</label>
+      <input class="form-control" type="file" id="formFile">
+    </div>
+    <br>
+    <div class="input-group pull-right">
+      <button type="submit" class="btn pull-right">Start ADD-Algorithm</button>
+    </div>
+  </div>
 </template>

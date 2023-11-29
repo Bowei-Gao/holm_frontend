@@ -10,7 +10,39 @@ export default {
             x: [],
             y: [],
             deliveryQuantities: []
-        }
+        },
+        matrix: []
+    }
+  },
+  methods: {
+    handleDeliveryQuantitiesFileUpload(event) {
+      const file = event.target.files[0];
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const content = e.target.result;
+
+        // Assuming each element of the array is on a new line
+        this.customers.deliveryQuantities = content.split(',').map(item => +item.trim()).filter(item => !isNaN(item));
+      };
+      reader.readAsText(file);
+    },
+    handleCoordinatesFileUpload(event) {
+      const file = event.target.files[0];
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const content = e.target.result;
+
+        // Parse the CSV content into a 2D array
+        const lines = content.split('\n');
+        this.matrix = lines.map(line =>
+            line.split(',').map(item => +item.trim()).filter(item => !isNaN(item))
+        );
+        this.customers.x = this.matrix.map(pair => pair[0]);
+        this.customers.y = this.matrix.map(pair => pair[1]);
+      };
+      reader.readAsText(file);
     }
   }
 }
@@ -56,6 +88,14 @@ export default {
                 </tbody>
             </table>
             <div class="well"><h5>Customers that were assigned to the chosen depot in the tactical planning.</h5></div>
+            <div class="mb-3">
+              <label for="formFile" class="form-label">Please input the delivery quantities file.</label>
+              <input class="form-control" type="file" id="formFile"  @change="handleDeliveryQuantitiesFileUpload">
+            </div>
+          <div class="mb-3">
+            <label for="formFile" class="form-label">Please input the coordinates file.</label>
+            <input class="form-control" type="file" id="formFile"  @change="handleCoordinatesFileUpload">
+          </div>
             <br>
             <div class="input-group pull-right">
                 <button type="submit" class="btn pull-right" @click="$emit('continue', customers)">Continue</button>

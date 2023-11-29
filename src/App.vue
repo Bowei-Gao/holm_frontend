@@ -78,7 +78,7 @@ export default {
   <two v-if='page==2' @continue="page += 1; locations = $event;" :number_of_locations="result.number_of_locations"></two>
   <three v-if="page==3" @start-add-algorithm="page += 1; distances = $event; submitData();" :number_of_locations="result.number_of_locations" :number_of_customers="result.number_of_customers"></three>
   <four v-if="page==4" @home="page = 0" :result_add_algorithm="result_add_algorithm"></four>
-  <five v-if="page==5" @continue="page += 1; result = $event;"></five>
+  <five v-if="page==5" @continue="page += 1; result = $event;" @start-planning="page = 7; input_assignment=$event; submitDataAssignment();"></five>
   <six v-if="page==6" @start-planning="page += 1; input_assignment=$event; submitDataAssignment();" :number_of_depots="result.number_of_depots" :number_of_customers="result.number_of_customers"></six>
   <seven v-if="page==7" @home="page = 0" :result_assignment="result_assignment"></seven>
   <eight v-if="page==8" @continue="page += 1; result = $event;"></eight>
