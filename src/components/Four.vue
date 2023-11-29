@@ -14,13 +14,12 @@ export default {
     </div>
 
   <div class="container">
-      <h3 class="text-center">{{ result_add_algorithm }}</h3>
-  </div>
-
-  <div class="container">
-    <span class="d-inline-block mr-2" v-for="(item, index) in result_add_algorithm" :key="index">
-      {{ item }}<span v-if="index < result_add_algorithm.length - 1">,</span>
-    </span>
+    <div class="jumbotron">
+      <h2 class="text-center">Locations recommendation: <span v-for="(item, index) in result_add_algorithm" :key="index">
+      {{ item }}<span v-if="index < result_add_algorithm.length - 1">, </span>
+      </span>
+      </h2>
+    </div>
   </div>
 
     <div class="container">

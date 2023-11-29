@@ -14,7 +14,14 @@ export default {
     </div>
 
   <div class="container">
-    <h3 class="text-center">{{ result_assignment }}</h3>
+    <div class="jumbotron">
+      <h2 class="text-center">Assignments recommendation:</h2>
+      <div v-for="(row, index) in result_assignment" :key="index">
+        <h2 class="text-center">assignment {{ index }}: <span v-for="(item, j) in row" :key="j">
+            {{ item }}<span v-if="j < row.length - 1">, </span>
+          </span></h2>
+      </div>
+    </div>
   </div>
 
     <div class="container">

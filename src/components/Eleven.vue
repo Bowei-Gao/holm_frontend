@@ -4,7 +4,7 @@ export default {
     emits: ['home'],
   data() {
     return {
-      result: [0, 1, 2, 3, 4]
+      result: []
     }
   }
 }
@@ -18,15 +18,15 @@ export default {
         </div>
     </div>
 
-    <div class="container">
-        <h3 class="text-center">{{ result_savings_algorithm }}</h3>
-    </div>
-
   <div class="container">
     <div class="jumbotron">
-      <h2 class="text-center">Locations recommendation: <span v-for="(item, index) in result" :key="index">
-      {{ item }}<span v-if="index < result.length - 1">, </span>
-      </span></h2></div>
+      <h2 class="text-center">Routes recommendation:</h2>
+        <div v-for="(row, index) in result_savings_algorithm" :key="index">
+          <h2 class="text-center">route {{ index }}: <span v-for="(item, j) in row" :key="j">
+            {{ item }}<span v-if="j < row.length - 1">, </span>
+          </span></h2>
+        </div>
+    </div>
   </div>
 
     <div class="container">
