@@ -17,9 +17,7 @@ export default {
     <div class="jumbotron">
       <h2 class="text-center">Assignments recommendation:</h2>
       <div v-for="(row, index) in result_assignment" :key="index">
-        <h2 class="text-center">assignment {{ index }}: <span v-for="(item, j) in row" :key="j">
-            {{ item }}<span v-if="j < row.length - 1">, </span>
-          </span></h2>
+        <h2 class="text-center">assign capacity {{ row[2] }} from warehouse {{ row[0] }} to recipient {{ row[1] }}</h2>
       </div>
     </div>
   </div>
