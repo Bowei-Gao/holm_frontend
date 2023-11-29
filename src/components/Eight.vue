@@ -42,6 +42,8 @@ export default {
                 <span class="input-group-addon">Loading Capacity: </span>
                 <input id="loading_capacity" type="number" class="form-control" name="loading_capacity" v-model="result.loading_capacity">
             </div>
+          <br>
+          <div class="well"><h5>If you will upload files as input, only enter loading capacity and press "continue".</h5></div>
             <br>
             <div class="input-group pull-right">
                 <button type="submit" class="btn pull-right" @click="$emit('continue', result)">Continue</button>

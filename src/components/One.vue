@@ -38,6 +38,8 @@ export default {
                 <span class="input-group-addon">Variable Costs per km: </span>
                 <input id="variable_costs_per_km" type="number" class="form-control" name="variable_costs_per_km" v-model="result.variable_costs_per_km">
             </div>
+          <br>
+          <div class="well"><h5>If you will upload files as input, do not enter anything and press "continue".</h5></div>
             <br>
             <div class="input-group pull-right">
                 <button type="submit" class="btn pull-right" @click="$emit('continue', result)">Continue</button>
