@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "esbuild": "^0.19.5",
+    "leaflet": "^1.9.4",
     "vue": "^3.3.4"
   },
   "devDependencies": {
