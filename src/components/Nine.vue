@@ -1,7 +1,7 @@
 <script>
 export default {
     props: ['number_of_customers'],
-    emits: ['continue'],
+    emits: ['continue', 'home'],
     data() {
         return {
         page: 0,
@@ -104,4 +104,12 @@ export default {
             </div>
         </form>
     </div>
+  <div class="container">
+    <form>
+      <br>
+      <div class="input-group pull-right">
+        <button type="submit" class="btn pull-right" @click="$emit('home')">Home</button>
+      </div>
+    </form>
+  </div>
 </template>

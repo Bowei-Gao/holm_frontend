@@ -1,6 +1,6 @@
 <script>
 export default {
-  emits: ['continue', 'startPlanning'],
+  emits: ['continue', 'startPlanning', 'home'],
   data() {
     return {
       result: {
@@ -41,4 +41,12 @@ export default {
             </div>
         </form>
     </div>
+  <div class="container">
+    <form>
+      <br>
+      <div class="input-group pull-right">
+        <button type="submit" class="btn pull-right" @click="$emit('home')">Home</button>
+      </div>
+    </form>
+  </div>
 </template>

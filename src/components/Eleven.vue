@@ -22,7 +22,7 @@ export default {
     <div class="jumbotron">
       <h2 class="text-center">Routes recommendation:</h2>
         <div v-for="(row, index) in result_savings_algorithm" :key="index">
-          <h2 class="text-center">route {{ index }}: <span v-for="(item, j) in row" :key="j">
+          <h2 class="text-center">route {{ index + 1 }}: <span v-for="(item, j) in row" :key="j">
             {{ item }}<span v-if="j < row.length - 1">, </span>
           </span></h2>
         </div>

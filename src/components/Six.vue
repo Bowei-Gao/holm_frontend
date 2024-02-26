@@ -1,7 +1,7 @@
 <script>
 export default {
     props: ['number_of_depots', 'number_of_customers'],
-    emits: ['startPlanning'],
+    emits: ['startPlanning', 'home'],
   data() {
     return {
       input_assignment: {
@@ -119,4 +119,12 @@ export default {
             </div>
         </form>
     </div>
+  <div class="container">
+    <form>
+      <br>
+      <div class="input-group pull-right">
+        <button type="submit" class="btn pull-right" @click="$emit('home')">Home</button>
+      </div>
+    </form>
+  </div>
 </template>
