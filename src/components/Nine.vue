@@ -71,7 +71,7 @@ export default {
                 </thead>
                 <tbody>
                     <tr v-for="rowIndex in [...Array(number_of_customers).keys()]" :key="rowIndex">
-                        <td class="text-center">Customer {{ rowIndex }}</td>
+                        <td class="text-center">Customer {{ rowIndex + 1 }}</td>
                         <td>
                             <select class="form-select" aria-label=".form-select example">
                                 <option selected>Select a Customer</option>

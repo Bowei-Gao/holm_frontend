@@ -7,8 +7,10 @@ export default {
       page: 0,
       result: {},
       depots: {
+        names: [],
         x: [],
         y: [],
+        capacity: [],
         fixedCost: []
       }
     }
@@ -44,16 +46,20 @@ export default {
         <thead>
         <tr>
           <th></th>
+          <th class="text-center">Names of Depots</th>
           <th class="text-center">X-coordinates of Depots</th>
           <th class="text-center">Y-coordinates of Depots</th>
+          <th class="text-center">Capacities of Depots</th>
           <th class="text-center">Fixed Costs of Depots</th>
         </tr>
         </thead>
         <tbody>
         <tr v-for="rowIndex in [...Array(number_of_depots).keys()]" :key="rowIndex">
-          <td>Location {{ rowIndex }}</td>
+          <td>Location {{ rowIndex + 1 }}</td>
+          <td><input type="number" name='names'  placeholder='' class="form-control" v-model="depots.names[rowIndex]"/></td>
           <td><input type="number" name='X-coordinates'  placeholder='' class="form-control" v-model="depots.x[rowIndex]"/></td>
           <td><input type="number" name='Y-coordinates'  placeholder='' class="form-control" v-model="depots.y[rowIndex]"/></td>
+          <td><input type="number" name='capacities'  placeholder='' class="form-control" v-model="depots.capacity[rowIndex]"/></td>
           <td><input type="number" name='fixed_costs'  placeholder='' class="form-control" v-model="depots.fixedCost[rowIndex]"/></td>
         </tr>
         </tbody>

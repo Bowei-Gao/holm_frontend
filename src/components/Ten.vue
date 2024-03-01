@@ -20,7 +20,7 @@ export default {
                     <tr>
                         <th></th>
                         <th>Depot</th>
-                        <th class="text-center" v-for="colIndex in [...Array(number_of_customers).keys()]" :key="colIndex">Customer {{ colIndex }}</th>
+                        <th class="text-center" v-for="colIndex in [...Array(number_of_customers).keys()]" :key="colIndex">Customer {{ colIndex + 1 }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -30,7 +30,7 @@ export default {
                         <td v-for="colIndex in [...Array(number_of_customers).keys()]" :key="colIndex"><input type="text" name='customer_0' class="form-control"/></td>
                     </tr>
                     <tr v-for="rowIndex in [...Array(number_of_customers).keys()]" :key="rowIndex">
-                        <td>Customer {{ rowIndex }}</td>
+                        <td>Customer {{ rowIndex + 1 }}</td>
                         <td><input type="text" name='customer_0' class="form-control" disabled/></td>
                         <td v-for="colIndex in [...Array(number_of_customers).keys()]" :key="colIndex"><input type="text" name='customer_0' class="form-control" :disabled="colIndex < rowIndex"/></td>
                     </tr>

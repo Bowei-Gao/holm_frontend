@@ -55,7 +55,7 @@ export default {
                 </thead>
                 <tbody>
                     <tr v-for="rowIndex in [...Array(number_of_locations).keys()]" :key="rowIndex">
-                        <td>Location {{ rowIndex }}</td>
+                        <td>Location {{ rowIndex + 1 }}</td>
                         <td v-for="colIndex in [...Array(number_of_customers).keys()]" :key="colIndex"><input v-model="distances[rowIndex][colIndex]" type="number" :name="'customer_' + rowIndex + '_' + colIndex"  placeholder='' class="form-control"/></td>
                     </tr>
                 </tbody>

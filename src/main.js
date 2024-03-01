@@ -15,6 +15,8 @@ import Ten from './components/Ten.vue'
 import Eleven from './components/Eleven.vue'
 import Twelve from './components/Twelve.vue'
 import Thirteen from './components/Thirteen.vue'
+import Fourteen from './components/Fourteen.vue'
+import Fifteen from './components/Fifteen.vue'
 
 const app = createApp(App)
 app.component('zero', Zero)
@@ -31,5 +33,7 @@ app.component('ten', Ten)
 app.component('eleven', Eleven)
 app.component('twelve', Twelve)
 app.component('thirteen', Thirteen)
+app.component('fourteen', Fourteen)
+app.component('fifteen', Fifteen)
 
 app.mount('#app')

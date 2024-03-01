@@ -28,12 +28,12 @@ export default {
       <br>
     
       <div class="btn-group-vertical pull-left">
-        <button type="button" class="btn btn-primary" @click="$emit('selected', 12)">Create Customer</button>
-        <button type="button" class="btn btn-primary">Delete Customer</button>
+        <button type="button" class="btn btn-primary" @click="$emit('selected', 12)">Create Depot</button>
+        <button type="button" class="btn btn-primary">Delete Depot</button>
       </div>
       <div class="btn-group-vertical pull-right">
-        <button type="button" class="btn btn-primary">Create Depot</button>
-        <button type="button" class="btn btn-primary">Delete Depot</button>
+        <button type="button" class="btn btn-primary" @click="$emit('selected', 14)">Create Customer</button>
+        <button type="button" class="btn btn-primary">Delete Customer</button>
       </div>
       
     </div>

@@ -51,7 +51,7 @@ export default {
                 </thead>
                 <tbody>
                     <tr v-for="rowIndex in [...Array(number_of_locations).keys()]" :key="rowIndex">
-                        <td>Location {{ rowIndex }}</td>
+                        <td>Location {{ rowIndex + 1 }}</td>
                         <td><input type="number" name='X-coordinates'  placeholder='' class="form-control" v-model="locations.x[rowIndex]"/></td>
                         <td><input type="number" name='Y-coordinates'  placeholder='' class="form-control" v-model="locations.y[rowIndex]"/></td>
                         <td><input type="number" name='fixed_costs'  placeholder='' class="form-control" v-model="locations.fixedCost[rowIndex]"/></td>
