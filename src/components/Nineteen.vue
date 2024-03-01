@@ -1,7 +1,7 @@
 <script>
 export default {
   props: ['number_of_customers'],
-  emits: ['home'],
+  emits: ['deleteCustomers', 'home'],
   data() {
     return {
       page: 0,
@@ -31,7 +31,7 @@ export default {
 <template>
   <div class="container">
     <div class="jumbotron">
-      <h1 class="text-center">Customers</h1>
+      <h1 class="text-center">Customer names</h1>
       <h3 class="text-center">Delete Customers</h3>
     </div>
   </div>
@@ -54,9 +54,13 @@ export default {
       </table>
       <div v-if="number_of_customers===0">
         <div class="mb-3">
-          <label for="formFile" class="form-label">Please input the names file.</label>
+          <label for="formFile" class="form-label">Please input the customer names file.</label>
           <input class="form-control" type="file" id="formFile"  @change="handleNamesFileUpload">
         </div>
+      </div>
+      <br>
+      <div class="input-group pull-right">
+        <button type="submit" class="btn pull-right" @click="$emit('deleteCustomers', customers)">Delete Customers</button>
       </div>
     </form>
   </div>

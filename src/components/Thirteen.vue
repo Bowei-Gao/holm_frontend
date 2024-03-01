@@ -1,7 +1,7 @@
 <script>
 export default {
   props: ['number_of_depots'],
-  emits: ['home'],
+  emits: ['createDepots', 'home'],
   data() {
     return {
       page: 0,
@@ -80,6 +80,10 @@ export default {
       <div class="mb-3" v-if="number_of_depots===0">
         <label for="formFile" class="form-label">Please input the depots file.</label>
         <input class="form-control" type="file" id="formFile"  @change="handleDepotsFileUpload">
+      </div>
+      <br>
+      <div class="input-group pull-right">
+        <button type="submit" class="btn pull-right" @click="$emit('createDepots', depots)">Create Depots</button>
       </div>
     </form>
   </div>
