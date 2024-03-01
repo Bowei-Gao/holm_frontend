@@ -89,6 +89,10 @@ export default {
   <thirteen v-if='page==13' @home="page = 0" :number_of_depots="result.number_of_depots"></thirteen>
   <fourteen v-if='page==14' @home="page = 0" @continue="page += 1; result = $event;"></fourteen>
   <fifteen v-if='page==15' @home="page = 0" :number_of_customers="result.number_of_customers"></fifteen>
+  <sixteen v-if='page==16' @home="page = 0" @continue="page += 1; result = $event;"></sixteen>
+  <seventeen v-if='page==17' @home="page = 0" :number_of_depots="result.number_of_depots"></seventeen>
+  <eighteen v-if='page==18' @home="page = 0" @continue="page += 1; result = $event;"></eighteen>
+  <nineteen v-if='page==19' @home="page = 0" :number_of_customers="result.number_of_customers"></nineteen>
 </template>
 
 <style>
