@@ -1,44 +1,49 @@
-<template>
-  <input v-model="searchQuery" type="text" @input="searchLocation">
-  <ul v-if="locations.length">
-    <li v-for="location in locations" :key="location.place_id" @click="selectLocation(location)">
-      {{ location.display_name }}
-    </li>
-  </ul>
-
-  <div id="map" style="height: 400px;"></div>
-</template>
-
 <script>
-import L from 'leaflet';
-import axios from 'axios';
-
 export default {
-  mounted() {
-    const map = L.map('map').setView([51.505, -0.09], 13);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 19,
-      attribution: '© OpenStreetMap contributors'
-    }).addTo(map);
-  },
+  emits: ['continue', 'home'],
   data() {
     return {
-      searchQuery: '',
-      locations: []
-    };
-  },
-  methods: {
-    async searchLocation() {
-      if (this.searchQuery.length > 2) {
-        const response = await axios.get(`https://nominatim.openstreetmap.org/search?format=json&q=${this.searchQuery}`);
-        console.log(response.data); // Process this data to show suggestions
+      result: {
+        number_of_depots: 0,
       }
-    },
-
-    selectLocation(location) {
-      console.log('Selected location coordinates:', location.lat, location.lon);
-      // You can also update the map view here
     }
   }
 }
 </script>
+
+<template>
+  <div class="container">
+    <div class="jumbotron">
+      <h1 class="text-center">Basic Information</h1>
+      <h3 class="text-center">Create Depots</h3>
+    </div>
+  </div>
+
+  <div class="container">
+    <label for="formFile" class="form-label">Please input basic information.</label>
+    <form>
+      <div class="input-group">
+        <span class="input-group-addon">Number of new depots: </span>
+        <input id="number_of_depots" type="number" class="form-control" name="number_of_depots" v-model="result.number_of_depots">
+      </div>
+      <br>
+      <div class="well"><h5>If you will upload files as input, do not enter anything and press "continue".</h5></div>
+      <br>
+      <div class="input-group pull-right">
+        <button type="submit" class="btn pull-right" @click="$emit('continue', result)">Continue</button>
+      </div>
+    </form>
+  </div>
+  <div class="container">
+    <form>
+      <br>
+      <div class="input-group pull-right">
+        <button type="submit" class="btn pull-right" @click="$emit('home')">Home</button>
+      </div>
+    </form>
+  </div>
+</template>
+
+<style scoped>
+
+</style>

@@ -13,7 +13,8 @@ import Eight from './components/Eight.vue'
 import Nine from './components/Nine.vue'
 import Ten from './components/Ten.vue'
 import Eleven from './components/Eleven.vue'
-import Twelve from "./components/Twelve.vue";
+import Twelve from './components/Twelve.vue'
+import Thirteen from './components/Thirteen.vue'
 
 const app = createApp(App)
 app.component('zero', Zero)
@@ -29,4 +30,6 @@ app.component('nine', Nine)
 app.component('ten', Ten)
 app.component('eleven', Eleven)
 app.component('twelve', Twelve)
+app.component('thirteen', Thirteen)
+
 app.mount('#app')

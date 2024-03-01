@@ -85,7 +85,8 @@ export default {
   <nine v-if="page==9" @home="page = 0" @continue="page += 1; customers = $event;" :number_of_customers="result.number_of_customers"></nine>
   <ten v-if="page==10" @home="page = 0" @start-savings-algorithm="page += 1; submitDataPlanning();" :number_of_customers="result.number_of_customers"></ten>
   <eleven v-if="page==11" @home="page = 0" :result_savings_algorithm="result_savings_algorithm"></eleven>
-  <twelve v-if="page==12"></twelve>
+  <twelve v-if='page==12' @home="page = 0" @continue="page += 1; result = $event;"></twelve>
+  <thirteen v-if='page==13' @home="page = 0" :number_of_depots="result.number_of_depots"></thirteen>
 </template>
 
 <style>
