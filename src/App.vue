@@ -12,7 +12,8 @@ export default {
       result_savings_algorithm: null,
       customers: [],
       result_assignment: null,
-      input_assignment: {}
+      input_assignment: {},
+      depots: {}
     }
   },
   methods: {
@@ -67,6 +68,77 @@ export default {
             // Handle error here
             console.error(error);
           });
+    },
+    async createDepots() {
+      const payload = {
+        names: this.depots.names,
+        x: this.depots.x,
+        y: this.depots.y,
+        capacity: this.depots.capacity,
+        fixedCost: this.depots.fixedCost // This should be dynamic based on your application's needs
+      };
+
+      /*
+      axios.post('http://localhost:8080/api/assignment', payload)
+          .then(response => {
+            // Handle response here
+            this.result_assignment = response.data.content;
+          })
+          .catch(error => {
+            // Handle error here
+            console.error(error);
+          });*/
+    },
+    async createCustomers() {
+      const payload = {
+        names: this.customers.names,
+        x: this.customers.x,
+        y: this.customers.y,
+        demand: this.customers.demand // This should be dynamic based on your application's needs
+      };
+
+      /*
+      axios.post('http://localhost:8080/api/assignment', payload)
+          .then(response => {
+            // Handle response here
+            this.result_assignment = response.data.content;
+          })
+          .catch(error => {
+            // Handle error here
+            console.error(error);
+          });*/
+    },
+    async deleteDepots() {
+      const payload = {
+        names: this.depots.names // This should be dynamic based on your application's needs
+      };
+
+      /*
+      axios.post('http://localhost:8080/api/assignment', payload)
+          .then(response => {
+            // Handle response here
+            this.result_assignment = response.data.content;
+          })
+          .catch(error => {
+            // Handle error here
+            console.error(error);
+          });*/
+    },
+    async deleteCustomers() {
+      const payload = {
+        names: this.customers.names // This should be dynamic based on your application's needs
+      };
+
+      /*
+      axios.post('http://localhost:8080/api/assignment', payload)
+          .then(response => {
+            // Handle response here
+            this.result_assignment = response.data.content;
+          })
+          .catch(error => {
+            // Handle error here
+            console.error(error);
+          });*/
     }
   }
 }
@@ -86,13 +158,13 @@ export default {
   <ten v-if="page==10" @home="page = 0" @start-savings-algorithm="page += 1; submitDataPlanning();" :number_of_customers="result.number_of_customers"></ten>
   <eleven v-if="page==11" @home="page = 0" :result_savings_algorithm="result_savings_algorithm"></eleven>
   <twelve v-if='page==12' @home="page = 0" @continue="page += 1; result = $event;"></twelve>
-  <thirteen v-if='page==13' @home="page = 0" :number_of_depots="result.number_of_depots"></thirteen>
+  <thirteen v-if='page==13' @home="page = 0" @create-depots="page = 0; depots=$event; createDepots();" :number_of_depots="result.number_of_depots"></thirteen>
   <fourteen v-if='page==14' @home="page = 0" @continue="page += 1; result = $event;"></fourteen>
-  <fifteen v-if='page==15' @home="page = 0" :number_of_customers="result.number_of_customers"></fifteen>
+  <fifteen v-if='page==15' @home="page = 0" @create-customers="page = 0; customers=$event; createCustomers();" :number_of_customers="result.number_of_customers"></fifteen>
   <sixteen v-if='page==16' @home="page = 0" @continue="page += 1; result = $event;"></sixteen>
-  <seventeen v-if='page==17' @home="page = 0" :number_of_depots="result.number_of_depots"></seventeen>
+  <seventeen v-if='page==17' @home="page = 0" @delete-depots="page = 0; depots=$event; deleteDepots();" :number_of_depots="result.number_of_depots"></seventeen>
   <eighteen v-if='page==18' @home="page = 0" @continue="page += 1; result = $event;"></eighteen>
-  <nineteen v-if='page==19' @home="page = 0" :number_of_customers="result.number_of_customers"></nineteen>
+  <nineteen v-if='page==19' @home="page = 0" @delete-customers="page = 0; customers=$event; deleteCustomers();" :number_of_customers="result.number_of_customers"></nineteen>
 </template>
 
 <style>
