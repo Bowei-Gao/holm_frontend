@@ -12,21 +12,34 @@ export default {
         y: [],
         capacity: [],
         fixedCost: []
-      }
+      },
+      depotsFile: Array.from({ length: this.number_of_depots }, () => Array(5).fill(0))
     }
   },
   methods: {
-    handleFixedCostsFileUpload(event) {
+    handleDepotsFileUpload(event) {
       const file = event.target.files[0];
 
       const reader = new FileReader();
       reader.onload = (e) => {
         const content = e.target.result;
 
-        // Assuming each element of the array is on a new line
-        this.depots.fixedCost = content.split(',').map(item => +item.trim()).filter(item => !isNaN(item));
+        // Parse the CSV content into a 2D array
+        const lines = content.split('\n');
+        this.depotsFile = lines.map(line =>
+            line.split(',').map(item => +item.trim()).filter(item => !isNaN(item))
+        );
       };
       reader.readAsText(file);
+
+      this.depotsFile.forEach(innerArray => {
+        // Assuming each innerArray has exactly 5 elements based on your initialization
+        this.depots.names.push(innerArray[0]);
+        this.depots.x.push(innerArray[1]);
+        this.depots.y.push(innerArray[2]);
+        this.depots.capacity.push(innerArray[3]);
+        this.depots.fixedCost.push(innerArray[4]);
+      });
     }
   }
 }
@@ -64,11 +77,9 @@ export default {
         </tr>
         </tbody>
       </table>
-      <div v-if="number_of_depots===0">
-        <div class="mb-3">
-          <label for="formFile" class="form-label">Please input the fixed costs file.</label>
-          <input class="form-control" type="file" id="formFile"  @change="handleFixedCostsFileUpload">
-        </div>
+      <div class="mb-3" v-if="number_of_depots===0">
+        <label for="formFile" class="form-label">Please input the depots file.</label>
+        <input class="form-control" type="file" id="formFile"  @change="handleDepotsFileUpload">
       </div>
     </form>
   </div>

@@ -10,6 +10,20 @@ export default {
         names: []
       }
     }
+  },
+  methods: {
+    handleNamesFileUpload(event) {
+      const file = event.target.files[0];
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const content = e.target.result;
+
+        // Assuming each element of the array is on a new line
+        this.depots.names = content.split(',').map(item => +item.trim()).filter(item => !isNaN(item));
+      };
+      reader.readAsText(file);
+    }
   }
 }
 </script>
@@ -38,6 +52,12 @@ export default {
         </tr>
         </tbody>
       </table>
+      <div v-if="number_of_depots===0">
+        <div class="mb-3">
+          <label for="formFile" class="form-label">Please input the names file.</label>
+          <input class="form-control" type="file" id="formFile"  @change="handleNamesFileUpload">
+        </div>
+      </div>
     </form>
   </div>
   <div class="container">
