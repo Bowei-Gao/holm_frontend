@@ -116,7 +116,11 @@ export default {
     },
     async deleteDepots() {
       const payload = {
-        names: this.depots.names // This should be dynamic based on your application's needs
+        names: this.depots.names, // This should be dynamic based on your application's needs
+        x: [],
+        y: [],
+        capacities: [],
+        fixed_costs: [] // This should be dynamic based on your application's needs
       };
 
       axios.post('http://localhost:8080/api/depotsDelete', payload)
@@ -133,7 +137,10 @@ export default {
     },
     async deleteCustomers() {
       const payload = {
-        names: this.customers.names // This should be dynamic based on your application's needs
+        names: this.customers.names, // This should be dynamic based on your application's needs
+        x: [],
+        y: [],
+        demand: [] // This should be dynamic based on your application's needs
       };
 
       axios.post('http://localhost:8080/api/customersDelete', payload)
