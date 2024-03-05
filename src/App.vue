@@ -13,7 +13,11 @@ export default {
       customers: [],
       result_assignment: null,
       input_assignment: {},
-      depots: {}
+      depots: {},
+      result_depotsCreate: null,
+      result_customersCreate: null,
+      result_depotsDelete: null,
+      result_customersDelete: null
     }
   },
   methods: {
@@ -74,20 +78,21 @@ export default {
         names: this.depots.names,
         x: this.depots.x,
         y: this.depots.y,
-        capacity: this.depots.capacity,
-        fixedCost: this.depots.fixedCost // This should be dynamic based on your application's needs
+        capacities: this.depots.capacity,
+        fixed_costs: this.depots.fixedCost // This should be dynamic based on your application's needs
       };
 
-      /*
-      axios.post('http://localhost:8080/api/assignment', payload)
+      axios.post('http://localhost:8080/api/depotsCreate', payload)
           .then(response => {
             // Handle response here
-            this.result_assignment = response.data.content;
+            this.result_depotsCreate = response.data.content;
+            alert('This is an alert from Vue.js!');
           })
           .catch(error => {
             // Handle error here
             console.error(error);
-          });*/
+            alert('Create Failed!');
+          });
     },
     async createCustomers() {
       const payload = {
@@ -97,48 +102,51 @@ export default {
         demand: this.customers.demand // This should be dynamic based on your application's needs
       };
 
-      /*
-      axios.post('http://localhost:8080/api/assignment', payload)
+      axios.post('http://localhost:8080/api/customersCreate', payload)
           .then(response => {
             // Handle response here
-            this.result_assignment = response.data.content;
+            this.result_customersCreate = response.data.content;
+            alert('This is an alert from Vue.js!');
           })
           .catch(error => {
             // Handle error here
             console.error(error);
-          });*/
+            alert('Create Failed!');
+          });
     },
     async deleteDepots() {
       const payload = {
         names: this.depots.names // This should be dynamic based on your application's needs
       };
 
-      /*
-      axios.post('http://localhost:8080/api/assignment', payload)
+      axios.post('http://localhost:8080/api/depotsDelete', payload)
           .then(response => {
             // Handle response here
-            this.result_assignment = response.data.content;
+            this.result_depotsDelete = response.data.content;
+            alert('This is an alert from Vue.js!');
           })
           .catch(error => {
             // Handle error here
             console.error(error);
-          });*/
+            alert('Delete Failed!');
+          });
     },
     async deleteCustomers() {
       const payload = {
         names: this.customers.names // This should be dynamic based on your application's needs
       };
 
-      /*
-      axios.post('http://localhost:8080/api/assignment', payload)
+      axios.post('http://localhost:8080/api/customersDelete', payload)
           .then(response => {
             // Handle response here
-            this.result_assignment = response.data.content;
+            this.result_customersDelete = response.data.content;
+            alert('This is an alert from Vue.js!');
           })
           .catch(error => {
             // Handle error here
             console.error(error);
-          });*/
+            alert('Delete Failed!');
+          });
     }
   }
 }

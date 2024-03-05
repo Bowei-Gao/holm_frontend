@@ -69,7 +69,7 @@ export default {
         <tbody>
         <tr v-for="rowIndex in [...Array(number_of_depots).keys()]" :key="rowIndex">
           <td>Location {{ rowIndex + 1 }}</td>
-          <td><input type="number" name='names'  placeholder='' class="form-control" v-model="depots.names[rowIndex]"/></td>
+          <td><input type="text" name='names'  placeholder='' class="form-control" v-model="depots.names[rowIndex]"/></td>
           <td><input type="number" name='X-coordinates'  placeholder='' class="form-control" v-model="depots.x[rowIndex]"/></td>
           <td><input type="number" name='Y-coordinates'  placeholder='' class="form-control" v-model="depots.y[rowIndex]"/></td>
           <td><input type="number" name='capacities'  placeholder='' class="form-control" v-model="depots.capacity[rowIndex]"/></td>

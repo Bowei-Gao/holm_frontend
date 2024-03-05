@@ -48,7 +48,7 @@ export default {
         <tbody>
         <tr v-for="rowIndex in [...Array(number_of_customers).keys()]" :key="rowIndex">
           <td>Customer {{ rowIndex + 1 }}</td>
-          <td><input type="number" name='names'  placeholder='' class="form-control" v-model="customers.names[rowIndex]"/></td>
+          <td><input type="text" name='names'  placeholder='' class="form-control" v-model="customers.names[rowIndex]"/></td>
         </tr>
         </tbody>
       </table>
