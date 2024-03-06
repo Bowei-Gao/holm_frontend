@@ -86,7 +86,7 @@ export default {
           .then(response => {
             // Handle response here
             this.result_depotsCreate = response.data.content;
-            alert('This is an alert from Vue.js!');
+            alert('Created ' + this.result_depotsCreate + ' Depots Successfully!');
           })
           .catch(error => {
             // Handle error here
@@ -106,7 +106,7 @@ export default {
           .then(response => {
             // Handle response here
             this.result_customersCreate = response.data.content;
-            alert('This is an alert from Vue.js!');
+            alert('Created ' + this.result_customersCreate + ' Customers Successfully');
           })
           .catch(error => {
             // Handle error here
@@ -127,7 +127,7 @@ export default {
           .then(response => {
             // Handle response here
             this.result_depotsDelete = response.data.content;
-            alert('This is an alert from Vue.js!');
+            alert('Deleted ' + this.result_depotsDelete + ' Depots Successfully!');
           })
           .catch(error => {
             // Handle error here
@@ -147,7 +147,7 @@ export default {
           .then(response => {
             // Handle response here
             this.result_customersDelete = response.data.content;
-            alert('This is an alert from Vue.js!');
+            alert('Deleted ' + this.result_customersDelete + ' Customers Successfully!');
           })
           .catch(error => {
             // Handle error here
