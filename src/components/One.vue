@@ -34,7 +34,7 @@ export default {
                 <input id="number_of_customers" type="number" class="form-control" name="number_of_customers" v-model="result.number_of_customers">
             </div>
             <br>
-            <div class="input-group">
+            <div class="input-group" v-show="false">
                 <span class="input-group-addon">Variable Costs per km: </span>
                 <input id="variable_costs_per_km" type="number" class="form-control" name="variable_costs_per_km" v-model="result.variable_costs_per_km">
             </div>

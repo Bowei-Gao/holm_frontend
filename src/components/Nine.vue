@@ -9,7 +9,8 @@ export default {
         customers: {
             x: [],
             y: [],
-            deliveryQuantities: []
+            deliveryQuantities: [],
+          pickUpQuantities: []
         },
         matrix: []
     }
@@ -24,6 +25,18 @@ export default {
 
         // Assuming each element of the array is on a new line
         this.customers.deliveryQuantities = content.split(',').map(item => +item.trim()).filter(item => !isNaN(item));
+      };
+      reader.readAsText(file);
+    },
+    handlePickUpQuantitiesFileUpload(event) {
+      const file = event.target.files[0];
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const content = e.target.result;
+
+        // Assuming each element of the array is on a new line
+        this.customers.pickUpQuantities = content.split(',').map(item => +item.trim()).filter(item => !isNaN(item));
       };
       reader.readAsText(file);
     },
@@ -81,24 +94,30 @@ export default {
                             </select>
                         </td>
                         <td><input type="number" name='delivery_quantity'  placeholder='' class="form-control" v-model="customers.deliveryQuantities[rowIndex]"/></td>
-                        <td><input type="text" name='pickup_quantity'  placeholder='' class="form-control"/></td>
+                        <td><input type="number" name='pickup_quantity'  placeholder='' class="form-control" v-model="customers.pickUpQuantities[rowIndex]"/></td>
                         <td><input type="number" name='X-coordinates'  placeholder='' class="form-control" v-model="customers.x[rowIndex]"/></td>
                         <td><input type="number" name='X-coordinates'  placeholder='' class="form-control" v-model="customers.y[rowIndex]"/></td>
                     </tr>
                 </tbody>
             </table>
-            <div class="well"><h5>Customers that were assigned to the chosen depot in the tactical planning.</h5></div>
+
           <div v-if="number_of_customers===0">
             <div class="mb-3">
               <label for="formFile" class="form-label">Please input the delivery quantities file.</label>
               <input class="form-control" type="file" id="formFile"  @change="handleDeliveryQuantitiesFileUpload">
             </div>
             <div class="mb-3">
+              <label for="formFile" class="form-label">Please input the pick up quantities file.</label>
+              <input class="form-control" type="file" id="formFile"  @change="handlePickUpQuantitiesFileUpload">
+            </div>
+            <div class="mb-3">
               <label for="formFile" class="form-label">Please input the coordinates file.</label>
               <input class="form-control" type="file" id="formFile"  @change="handleCoordinatesFileUpload">
             </div>
           </div>
-            <br>
+          <br>
+          <div class="well"><h5>Customers that were assigned to the chosen depot in the tactical planning.</h5></div>
+
             <div class="input-group pull-right">
                 <button type="submit" class="btn pull-right" @click="$emit('continue', customers)">Continue</button>
             </div>
