@@ -1,5 +1,6 @@
 <script>
 import axios from 'axios';
+import queryOverpass from "query-overpass";
 
 export default {
   data() {
@@ -18,7 +19,8 @@ export default {
       result_depotsCreate: null,
       result_customersCreate: null,
       result_depotsDelete: null,
-      result_customersDelete: null
+      result_customersDelete: null,
+      parks: null
     }
   },
   methods: {
@@ -159,12 +161,34 @@ export default {
             console.error(error);
             alert('Delete Failed!');
           });
+    },
+    async fetchParks() {
+      const query = `
+      [out:json];
+      (
+      node["name"="House of Logistics and Mobility"];
+      way["name"="House of Logistics and Mobility"];
+      relation["name"="House of Logistics and Mobility"];
+      );
+      out center;
+      `;
+      fetch('https://overpass-api.de/api/interpreter', {
+        method: 'POST',
+        body: new URLSearchParams({data: query}),
+        headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      })
+          .then(response => response.json())
+          .then(data => {
+            this.parks = data.elements;
+          })
+          .catch(error => console.error('Error:', error));
     }
   }
 }
 </script>
 
 <template>
+  {{ this.parks }}
   <zero v-if='page==0' @selected="page = $event"></zero>
   <one v-if='page==1' @home="page = 0" @continue="page += 1; result = $event;"></one>
   <two v-if='page==2' @home="page = 0" @continue="page += 1; locations = $event;" :number_of_locations="result.number_of_locations"></two>
@@ -184,7 +208,7 @@ export default {
   <sixteen v-if='page==16' @home="page = 0" @continue="page += 1; result = $event;"></sixteen>
   <seventeen v-if='page==17' @home="page = 0" @delete-depots="page = 0; depots=$event; deleteDepots();" :number_of_depots="result.number_of_depots"></seventeen>
   <eighteen v-if='page==18' @home="page = 0" @continue="page += 1; result = $event;"></eighteen>
-  <nineteen v-if='page==19' @home="page = 0" @delete-customers="page = 0; customers=$event; deleteCustomers();" :number_of_customers="result.number_of_customers"></nineteen>
+  <nineteen v-if='page==19' @home="page = 0" @delete-customers="page = 0; customers=$event; deleteCustomers(); fetchParks();" :number_of_customers="result.number_of_customers"></nineteen>
 </template>
 
 <style>

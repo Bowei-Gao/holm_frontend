@@ -10,6 +10,7 @@
   "dependencies": {
     "esbuild": "^0.19.5",
     "leaflet": "^1.9.4",
+    "query-overpass": "^1.5.5",
     "vue": "^3.3.4"
   },
   "devDependencies": {
