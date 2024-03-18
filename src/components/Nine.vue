@@ -65,7 +65,7 @@ export default {
     <div class="container">
         <div class="jumbotron">
             <h1 class="text-center">Additional Information</h1>
-            <h3 class="text-center">Assignment</h3>
+            <h3 class="text-center">Vehicle Routing</h3>
         </div>
     </div>
     
@@ -78,8 +78,8 @@ export default {
                         <th></th>
                         <th class="text-center">Delivery Quantity</th>
                         <th class="text-center">Pickup Quantity</th>
-                        <th class="text-center">X-coordinates</th>
-                        <th class="text-center">Y-coordinates</th>
+                        <th class="text-center" v-show="false">X-coordinates</th>
+                        <th class="text-center" v-show="false">Y-coordinates</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -95,8 +95,8 @@ export default {
                         </td>
                         <td><input type="number" name='delivery_quantity'  placeholder='' class="form-control" v-model="customers.deliveryQuantities[rowIndex]"/></td>
                         <td><input type="number" name='pickup_quantity'  placeholder='' class="form-control" v-model="customers.pickUpQuantities[rowIndex]"/></td>
-                        <td><input type="number" name='X-coordinates'  placeholder='' class="form-control" v-model="customers.x[rowIndex]"/></td>
-                        <td><input type="number" name='X-coordinates'  placeholder='' class="form-control" v-model="customers.y[rowIndex]"/></td>
+                        <td v-show="false"><input type="number" name='X-coordinates'  placeholder='' class="form-control" v-model="customers.x[rowIndex]"/></td>
+                        <td v-show="false"><input type="number" name='X-coordinates'  placeholder='' class="form-control" v-model="customers.y[rowIndex]"/></td>
                     </tr>
                 </tbody>
             </table>
@@ -110,7 +110,7 @@ export default {
               <label for="formFile" class="form-label">Please input the pick up quantities file.</label>
               <input class="form-control" type="file" id="formFile"  @change="handlePickUpQuantitiesFileUpload">
             </div>
-            <div class="mb-3">
+            <div class="mb-3" v-show="false">
               <label for="formFile" class="form-label">Please input the coordinates file.</label>
               <input class="form-control" type="file" id="formFile"  @change="handleCoordinatesFileUpload">
             </div>

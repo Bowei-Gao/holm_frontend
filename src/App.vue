@@ -166,9 +166,9 @@ export default {
       const query = `
       [out:json];
       (
-      node["name"="House of Logistics and Mobility"];
-      way["name"="House of Logistics and Mobility"];
-      relation["name"="House of Logistics and Mobility"];
+      node["name"="House of logistics & Mobility"];
+      way["name"="House of logistics & Mobility"];
+      relation["name"="House of logistics & Mobility"];
       );
       out center;
       `;
