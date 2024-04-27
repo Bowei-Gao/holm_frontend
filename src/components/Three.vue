@@ -1,6 +1,6 @@
 <script>
 export default {
-    props: ['number_of_locations', 'number_of_customers'],
+    props: ['number_of_locations', 'number_of_customers', 'all_customers'],
     emits: ['startAddAlgorithm', 'home'],
     data() {
         return {
@@ -13,7 +13,7 @@ export default {
             distances: Array.from({ length: this.number_of_locations }, () => Array(this.number_of_customers).fill(0)),
             variable_cost_rates: Array(this.number_of_customers).fill(1),
             weightings: Array(this.number_of_customers).fill(1),
-          }
+          },
         }
     },
   methods: {
@@ -55,12 +55,21 @@ export default {
         this.input_distances.weightings = content.split(',').map(item => +item.trim()).filter(item => !isNaN(item));
       };
       reader.readAsText(file);
+    },
+    handleCustomerChange(event, index) {
+      // this.selectedCustomers[index] = event.target.value;
+      // console.log(`Customer selected in column ${index}: ${event.target.value}`);
+      // Additional actions here
+      alert(index);
+      alert(event.target.value);
+
     }
-  }
+  },
 }
 </script>
 
 <template>
+  {{all_customers}}
     <div class="container">
         <div class="jumbotron">
             <h1 class="text-center">Distances</h1>
@@ -75,11 +84,10 @@ export default {
                     <tr>
                         <th></th>
                         <th class="text-center" v-for="columnIndex in [...Array(number_of_customers).keys()]" :key="columnIndex">
-                            <select class="form-select" aria-label=".form-select example">
-                                <option selected>Select a Customer</option>
-                                <option value="1">Customer 4711</option>
-                                <option value="2">Customer 4396</option>
-                                <option value="3">Customer 3402</option>
+                            <select class="form-select" aria-label=".form-select example"
+                                    @change="handleCustomerChange($event, columnIndex)">
+                              <option selected value="">Select a Customer</option>
+                              <option v-for="c in this.all_customers" :key="c.names" :value="c.names">{{ c.names }}</option>
                             </select>
                         </th>
                     </tr>

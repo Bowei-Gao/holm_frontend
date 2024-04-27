@@ -1,5 +1,6 @@
 <script>
 export default {
+  props: ['all_depots'],
   emits: ['continue', 'home'],
   data() {
     return {
@@ -26,10 +27,8 @@ export default {
         <form>
             <div class="input-group">
                 <select class="form-select" aria-label=".form-select example" v-model="result.depot">
-                    <option selected>Select a Depot</option>
-                    <option value="1">Depot ABC</option>
-                    <option value="2">Depot WDF</option>
-                    <option value="3">Depot ZGF</option>
+                    <option selected value="">Select a Depot</option>
+                  <option v-for="d in this.all_depots" :key="d.names" :value="d.names">{{ d.names }}</option>
                 </select>
             </div>
             <br>

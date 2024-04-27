@@ -1,6 +1,6 @@
 <script>
 export default {
-    props: ['number_of_customers'],
+    props: ['number_of_customers', 'all_customers'],
     emits: ['continue', 'home'],
     data() {
         return {
@@ -87,10 +87,8 @@ export default {
                         <td class="text-center">Customer {{ rowIndex + 1 }}</td>
                         <td>
                             <select class="form-select" aria-label=".form-select example">
-                                <option selected>Select a Customer</option>
-                                <option value="1">Customer 4711</option>
-                                <option value="2">Customer 4396</option>
-                                <option value="3">Customer 3402</option>
+                                <option selected value="">Select a Customer</option>
+                              <option v-for="c in this.all_customers" :key="c.names" :value="c.names">{{ c.names }}</option>
                             </select>
                         </td>
                         <td><input type="number" name='delivery_quantity'  placeholder='' class="form-control" v-model="customers.deliveryQuantities[rowIndex]"/></td>

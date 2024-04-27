@@ -1,13 +1,13 @@
 <script>
 export default {
-    props: ['number_of_depots', 'number_of_customers'],
-    emits: ['startPlanning', 'home'],
+  props: ['number_of_depots', 'number_of_customers', 'all_depots', 'all_customers'],
+  emits: ['startPlanning', 'home'],
   data() {
     return {
       input_assignment: {
-        distances: Array.from({ length: this.number_of_depots }, () => Array(this.number_of_customers).fill(0)),
-        inventory: [],
-        demand: []
+        distances: Array.from({length: this.number_of_depots}, () => Array(this.number_of_customers).fill(0)),
+        inventory: Array(this.number_of_depots).fill(0),
+        demand: Array(this.number_of_customers).fill(0),
       }
     }
   },
@@ -50,6 +50,28 @@ export default {
         this.input_assignment.demand = content.split(',').map(item => +item.trim()).filter(item => !isNaN(item));
       };
       reader.readAsText(file);
+    },
+    handleCustomerChange(event, index) {
+      // this.selectedCustomers[index] = event.target.value;
+      // console.log(`Customer selected in column ${index}: ${event.target.value}`);
+      // Additional actions here
+      for (const customer of this.all_customers) {
+          if (customer.names === event.target.value) {
+              this.input_assignment.demand[index] = customer.demand;
+              break;
+          }
+      }
+    },
+    handleDepotChange(event, index) {
+      // this.selectedCustomers[index] = event.target.value;
+      // console.log(`Customer selected in column ${index}: ${event.target.value}`);
+      // Additional actions here
+      for (const depot of this.all_depots) {
+        if (depot.names === event.target.value) {
+          this.input_assignment.inventory[index] = depot.capacities;
+          break;
+        }
+      }
     }
   }
 }
@@ -70,11 +92,9 @@ export default {
                     <tr>
                         <th></th>
                         <th class="text-center" v-for="columnIndex in [...Array(number_of_customers).keys()]" :key="columnIndex">
-                            <select class="form-select" aria-label=".form-select example">
-                                <option selected>Select a Customer</option>
-                                <option value="1">Customer 4711</option>
-                                <option value="2">Customer 4396</option>
-                                <option value="3">Customer 3402</option>
+                            <select class="form-select" aria-label=".form-select example" @change="handleCustomerChange($event, columnIndex)">
+                              <option selected value="">Select a Customer</option>
+                              <option v-for="c in this.all_customers" :key="c.names" :value="c.names">{{ c.names }}</option>
                             </select>
                         </th>
                         <th class="text-center">Capacity</th>
@@ -83,11 +103,9 @@ export default {
                 <tbody>
                     <tr v-for="rowIndex in [...Array(number_of_depots).keys()]" :key="rowIndex">
                         <td>
-                            <select class="form-select" aria-label=".form-select example">
-                                <option selected>Select a Depot</option>
-                                <option value="1">Depot ABC</option>
-                                <option value="2">Depot WDF</option>
-                                <option value="3">Depot ZGF</option>
+                            <select class="form-select" aria-label=".form-select example" @change="handleDepotChange($event, rowIndex)">
+                              <option selected value="">Select a Depot</option>
+                              <option v-for="d in this.all_depots" :key="d.names" :value="d.names">{{ d.names }}</option>
                             </select>
                         </td>
                         <td v-for="colIndex in [...Array(number_of_customers).keys()]" :key="colIndex"><input type="number" v-model="input_assignment.distances[rowIndex][colIndex]" name='customer_0' class="form-control"/></td>
