@@ -31,6 +31,30 @@ export default {
         );
       };
       reader.readAsText(file);
+    },
+    handleVariableCostRatesFileUpload(event) {
+      const file = event.target.files[0];
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const content = e.target.result;
+
+        // Assuming each element of the array is on a new line
+        this.input_distances.variable_cost_rates = content.split(',').map(item => +item.trim()).filter(item => !isNaN(item));
+      };
+      reader.readAsText(file);
+    },
+    handleWeightingsFileUpload(event) {
+      const file = event.target.files[0];
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const content = e.target.result;
+
+        // Assuming each element of the array is on a new line
+        this.input_distances.weightings = content.split(',').map(item => +item.trim()).filter(item => !isNaN(item));
+      };
+      reader.readAsText(file);
     }
   }
 }
@@ -75,9 +99,19 @@ export default {
                     </tr>
                 </tbody>
             </table>
-          <div class="mb-3" v-if="number_of_customers===0">
-            <label for="formFile" class="form-label">Please input the distances file.</label>
-            <input class="form-control" type="file" id="formFile"  @change="handleDistancesFileUpload">
+          <div v-if="number_of_customers===0">
+            <div class="mb-3">
+              <label for="formFile" class="form-label">Please input the distances file.</label>
+              <input class="form-control" type="file" id="formFile"  @change="handleDistancesFileUpload">
+            </div>
+            <div class="mb-3">
+              <label for="formFile" class="form-label">Please input the variable cost rates file.</label>
+              <input class="form-control" type="file" id="formFile"  @change="handleVariableCostRatesFileUpload">
+            </div>
+            <div class="mb-3">
+              <label for="formFile" class="form-label">Please input the weightings file.</label>
+              <input class="form-control" type="file" id="formFile"  @change="handleWeightingsFileUpload">
+            </div>
           </div>
             <br>
             <div class="input-group pull-right">

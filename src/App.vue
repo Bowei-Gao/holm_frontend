@@ -20,7 +20,9 @@ export default {
       result_customersCreate: null,
       result_depotsDelete: null,
       result_customersDelete: null,
-      parks: null
+      parks: null,
+      all_depots: null,
+      all_customers: null,
     }
   },
   methods: {
@@ -182,22 +184,53 @@ export default {
             this.parks = data.elements;
           })
           .catch(error => console.error('Error:', error));
-    }
+    },
+    async getAllDepots() {
+      axios.get('http://localhost:8080/api/allDepots')
+          .then(response => {
+            // Handle response here
+            this.all_depots = response.data;
+          })
+          .catch(error => {
+            // Handle error here
+            console.error(error);
+          });
+    },
+    async getAllCustomers() {
+      axios.get('http://localhost:8080/api/allCustomers')
+          .then(response => {
+            // Handle response here
+            this.all_customers = response.data;
+          })
+          .catch(error => {
+            // Handle error here
+            console.error(error);
+          });
+    },
   }
 }
 </script>
 
 <template>
-  {{ this.parks }}
+  <div v-if="this.all_depots">
+    <h2>Depots</h2>
+    {{ this.all_depots }}
+    {{ 3 }}
+    <ul>
+      <li v-for="depot in this.all_depots" :key="depot.names">
+        {{ depot.names }} ({{ depot.x }}, {{ depot.y }}): {{ depot.capacities }}
+      </li>
+    </ul>
+  </div>
   <zero v-if='page==0' @selected="page = $event"></zero>
-  <one v-if='page==1' @home="page = 0" @continue="page += 1; result = $event;"></one>
+  <one v-if='page==1' @home="page = 0" @continue="page += 1; result = $event; getAllCustomers(); getAllDepots();"></one>
   <two v-if='page==2' @home="page = 0" @continue="page += 1; locations = $event;" :number_of_locations="result.number_of_locations"></two>
   <three v-if="page==3" @home="page = 0" @start-add-algorithm="page += 1; input_distances = $event; submitData();" :number_of_locations="result.number_of_locations" :number_of_customers="result.number_of_customers"></three>
   <four v-if="page==4" @home="page = 0" :result_add_algorithm="result_add_algorithm"></four>
-  <five v-if="page==5" @home="page = 0" @continue="page += 1; result = $event;" @start-planning="page = 7; input_assignment=$event; submitDataAssignment();"></five>
+  <five v-if="page==5" @home="page = 0" @continue="page += 1; result = $event; getAllCustomers(); getAllDepots();"></five>
   <six v-if="page==6" @home="page = 0" @start-planning="page += 1; input_assignment=$event; submitDataAssignment();" :number_of_depots="result.number_of_depots" :number_of_customers="result.number_of_customers"></six>
   <seven v-if="page==7" @home="page = 0" :result_assignment="result_assignment"></seven>
-  <eight v-if="page==8" @home="page = 0" @continue="page += 1; result = $event;"></eight>
+  <eight v-if="page==8" @home="page = 0" @continue="page += 1; result = $event;  getAllCustomers(); getAllDepots();"></eight>
   <nine v-if="page==9" @home="page = 0" @continue="page += 1; customers = $event;" :number_of_customers="result.number_of_customers"></nine>
   <ten v-if="page==10" @home="page = 0" @start-savings-algorithm="page += 1; distances=$event; submitDataPlanning();" :number_of_customers="result.number_of_customers"></ten>
   <eleven v-if="page==11" @home="page = 0" :result_savings_algorithm="result_savings_algorithm"></eleven>
@@ -209,6 +242,7 @@ export default {
   <seventeen v-if='page==17' @home="page = 0" @delete-depots="page = 0; depots=$event; deleteDepots();" :number_of_depots="result.number_of_depots"></seventeen>
   <eighteen v-if='page==18' @home="page = 0" @continue="page += 1; result = $event;"></eighteen>
   <nineteen v-if='page==19' @home="page = 0" @delete-customers="page = 0; customers=$event; deleteCustomers(); fetchParks();" :number_of_customers="result.number_of_customers"></nineteen>
+  {{ this.all_customers }}
 </template>
 
 <style>
