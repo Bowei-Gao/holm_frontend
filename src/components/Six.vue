@@ -1,18 +1,19 @@
 <script>
 export default {
-  props: ['number_of_depots', 'number_of_customers', 'all_depots', 'all_customers'],
-  emits: ['startPlanning', 'home'],
-  data() {
-    return {
-      input_assignment: {
-        distances: Array.from({length: this.number_of_depots}, () => Array(this.number_of_customers).fill(0)),
-        inventory: Array(this.number_of_depots).fill(0),
-        demand: Array(this.number_of_customers).fill(0),
-      }
-    }
-  },
-  methods: {
-    handleDistancesFileUpload(event) {
+    props: ['number_of_depots', 'number_of_customers', 'all_depots', 'all_customers'],
+    emits: ['startPlanning', 'home'],
+    data() {
+        return {
+            input_assignment: {
+                distances: Array.from({length: this.number_of_depots}, () => Array(this.number_of_customers).fill(0)),
+                inventory: Array(this.number_of_depots).fill(0),
+                demand: Array(this.number_of_customers).fill(0),
+            },
+            fileOption: this.number_of_depots,
+        }
+    },
+    methods: {
+    /*handleDistancesFileUpload(event) {
       const file = event.target.files[0];
 
       const reader = new FileReader();
@@ -26,8 +27,37 @@ export default {
         );
       };
       reader.readAsText(file);
-    },
-    handleInventoryFileUpload(event) {
+    },*/
+        handleDistancesFileUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;  // Check if a file was actually selected
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const data = new Uint8Array(e.target.result);
+                const workbook = XLSX.read(data, {type: 'array'});
+
+                // Assuming the data is in the first sheet
+                const firstSheetName = workbook.SheetNames[0];
+                const worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert the sheet to a 2D array
+                const json = XLSX.utils.sheet_to_json(worksheet, {header: 1});
+
+                // Assuming each row represents distances and you want to convert all entries to numbers
+                this.input_assignment.distances = json.map(row => 
+                    row.map(item => +item).filter(item => !isNaN(item))
+                );
+            };
+
+            reader.onerror = () => {
+                console.error('Error reading file');
+            };
+
+            // Read the file as an array buffer
+            reader.readAsArrayBuffer(file);
+        },
+    /*handleInventoryFileUpload(event) {
       const file = event.target.files[0];
 
       const reader = new FileReader();
@@ -38,8 +68,35 @@ export default {
         this.input_assignment.inventory = content.split(',').map(item => +item.trim()).filter(item => !isNaN(item));
       };
       reader.readAsText(file);
-    },
-    handleDemandFileUpload(event) {
+    },*/
+        handleInventoryFileUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;  // Ensure a file is actually selected
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const data = new Uint8Array(e.target.result);
+                const workbook = XLSX.read(data, {type: 'array'});
+
+                // Assuming the data is in the first sheet
+                const firstSheetName = workbook.SheetNames[0];
+                const worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert the sheet to a 2D array
+                const json = XLSX.utils.sheet_to_json(worksheet, {header: 1});
+
+                // Assuming you want to combine all rows' first column into one array of rates
+                this.input_assignment.inventory = json.map(row => +row[0]).filter(item => !isNaN(item));
+            };
+
+            reader.onerror = () => {
+                console.error('Error reading file');
+            };
+
+            // Read the file as an array buffer
+            reader.readAsArrayBuffer(file);
+        },
+    /*handleDemandFileUpload(event) {
       const file = event.target.files[0];
 
       const reader = new FileReader();
@@ -50,30 +107,57 @@ export default {
         this.input_assignment.demand = content.split(',').map(item => +item.trim()).filter(item => !isNaN(item));
       };
       reader.readAsText(file);
-    },
-    handleCustomerChange(event, index) {
-      // this.selectedCustomers[index] = event.target.value;
-      // console.log(`Customer selected in column ${index}: ${event.target.value}`);
-      // Additional actions here
-      for (const customer of this.all_customers) {
-          if (customer.names === event.target.value) {
-              this.input_assignment.demand[index] = customer.demand;
-              break;
-          }
-      }
-    },
-    handleDepotChange(event, index) {
-      // this.selectedCustomers[index] = event.target.value;
-      // console.log(`Customer selected in column ${index}: ${event.target.value}`);
-      // Additional actions here
-      for (const depot of this.all_depots) {
-        if (depot.names === event.target.value) {
-          this.input_assignment.inventory[index] = depot.capacities;
-          break;
+    },*/
+        handleDemandFileUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;  // Ensure a file is actually selected
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const data = new Uint8Array(e.target.result);
+                const workbook = XLSX.read(data, {type: 'array'});
+
+                // Assuming the data is in the first sheet
+                const firstSheetName = workbook.SheetNames[0];
+                const worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert the sheet to a 2D array
+                const json = XLSX.utils.sheet_to_json(worksheet, {header: 1});
+
+                // Assuming you want to combine all rows' first column into one array of rates
+                this.input_assignment.demand = json.map(row => +row[0]).filter(item => !isNaN(item));
+            };
+
+            reader.onerror = () => {
+                console.error('Error reading file');
+            };
+
+            // Read the file as an array buffer
+            reader.readAsArrayBuffer(file);
+        },
+        handleCustomerChange(event, index) {
+            // this.selectedCustomers[index] = event.target.value;
+            // console.log(`Customer selected in column ${index}: ${event.target.value}`);
+            // Additional actions here
+            for (const customer of this.all_customers) {
+                if (customer.names === event.target.value) {
+                    this.input_assignment.demand[index] = customer.demand;
+                    break;
+                }
+            }
+        },
+        handleDepotChange(event, index) {
+            // this.selectedCustomers[index] = event.target.value;
+            // console.log(`Customer selected in column ${index}: ${event.target.value}`);
+            // Additional actions here
+            for (const depot of this.all_depots) {
+                if (depot.names === event.target.value) {
+                    this.input_assignment.inventory[index] = depot.capacities;
+                    break;
+                }
+            }
         }
-      }
     }
-  }
 }
 </script>
 
@@ -84,10 +168,23 @@ export default {
             <h3 class="text-center">Assignment</h3>
         </div>
     </div>
+
+    <div class="container" v-if="number_of_depots>0">
+        <form>
+            <label>
+            <input type="radio" :value="number_of_depots" v-model="fileOption">
+                Manual Input
+            </label>
+            <label>
+            <input type="radio" :value="0" v-model="fileOption">
+                File Input
+            </label>
+        </form>
+    </div>
     
     <div class="container">
         <form>
-            <table class="table input-group" v-if="number_of_depots>0">
+            <table class="table input-group" v-if="fileOption>0">
                 <thead>
                     <tr>
                         <th></th>
@@ -117,7 +214,7 @@ export default {
                     </tr>
                 </tbody>
             </table>
-          <div v-if="number_of_depots===0">
+          <div v-if="fileOption===0">
             <div class="mb-3">
               <label for="formFile" class="form-label">Please input the distances file.</label>
               <input class="form-control" type="file" id="formFile"  @change="handleDistancesFileUpload">
